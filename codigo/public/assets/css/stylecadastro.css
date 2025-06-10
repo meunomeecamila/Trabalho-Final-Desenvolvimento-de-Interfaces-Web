@@ -1,0 +1,111 @@
+/* Adiciona espaço para o header fixo */
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding-top: 150px; /* altura do header fixo */
+  background-color: #b2d1bd;
+}
+
+h1,h2{
+    color: #ffffff;
+}
+/* Estilização do header fixo */
+header.fixed-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #7a685d;
+  color: #faf3f3;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+}
+
+/* Container do header */
+header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+
+/* Título centralizado e bonito */
+header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 10px 0;
+  text-align: center;
+  color: #faf3f3;
+}
+
+/* Navbar centralizada e estilizada */
+.navbar {
+  justify-content: center;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 15px;
+  justify-content: center; /* centraliza os <li> */
+}
+
+.nav-det {
+  color: #faf3f3;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-det:hover {
+  color: #d9cfcf;
+}
+
+/* Resto do seu CSS original permanece */
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+label {
+  display: block;
+  margin: 10px 0 5px;
+}
+input, select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #7a685d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  background: #fff;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+th {
+  background-color: #f8f2f2;
+}
+
+.titledestinos {
+    color: #fff;
+    padding: 20px;
+}

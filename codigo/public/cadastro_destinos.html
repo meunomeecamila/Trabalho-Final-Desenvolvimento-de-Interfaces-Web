@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Place</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Cabeçalho do site -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Find Your Place</h1>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html">Mais populares</a></li>
+                    <li><a href="index.html">Destinos</a></li>
+                    <!--<li><a href="#contato">Contato</a></li>-->
+                    <!--<li><a href="#sobrenos">Sobre nós</a></li>-->
+                    <li><a href="cadastro_destinos.html">Cadastre-se!</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <br><br><br>
+
+    <h1 class="titledestinos">Cadastro de Destinos</h1>
+    <form id="form-destino">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" name="descricao" required>
+
+        <label for="imagem">URL da Imagem:</label>
+        <input type="text" id="imagem" name="imagem" required>
+
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo" required>
+
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" required>
+
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h2 class="titledestinos">Destinos Cadastrados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>País</th>
+                <th>Imagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os destinos aparecerão aqui na Etapa 2 com JavaScript -->
+        </tbody>
+    </table>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy;2025, Turismo. Todos os direitos reservados</p>
+        <form class="subscribe-form">
+            <div class="subscribe-group">
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+                <button type="submit">Inscrever-se</button>
+            </div>
+        </form>
+    </footer>
+
+    <script src="assets/scripts/app.js"></script>
+</body>
+</html>

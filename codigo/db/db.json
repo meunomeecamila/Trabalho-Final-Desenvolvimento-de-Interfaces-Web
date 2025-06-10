@@ -1,0 +1,58 @@
+{
+  "destinos": [
+    {
+      "id": "1",
+      "nome": "Nova York",
+      "descricao": "A cidade que nunca dorme! Conhecida por seus arranha-céus, parques e cultura vibrante.",
+      "imagem": "https://picsum.photos/id/43/300/200",
+      "tipo": "cidade",
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    },
+    {
+      "id": "2",
+      "nome": "Rio de Janeiro",
+      "descricao": "Agora famosa também pelos seus museus incríveis!",
+      "imagem": "https://picsum.photos/id/16/300/200",
+      "tipo": "praia",
+      "latitude": -22.9068,
+      "longitude": -43.1729
+    },
+    {
+      "id": "3",
+      "nome": "Veneza",
+      "descricao": "Conhecida por seus canais românticos e arquitetura histórica.",
+      "imagem": "https://picsum.photos/id/164/300/200",
+      "tipo": "cidade",
+      "latitude": 45.4408,
+      "longitude": 12.3155
+    },
+    {
+      "id": "9d9e",
+      "nome": "Belo Horizonte",
+      "descricao": "Cidade mineira especializada em alimentação típica e cultura histórica",
+      "imagem": "https://picsum.photos/id/113/300/200",
+      "tipo": "cidade",
+      "latitude": -19.9167,
+      "longitude": -43.9345
+    },
+    {
+      "id": "e79c",
+      "nome": "São Paulo",
+      "descricao": "Cidade com prédios e atrações turísticas urbanas",
+      "imagem": "https://picsum.photos/id/88/300/200",
+      "tipo": "cidade",
+      "latitude": -23.5505,
+      "longitude": -46.6333
+    },
+    {
+      "id": "06e3",
+      "nome": "Paris",
+      "descricao": "Cidade charmosa com atrações culturais e cafés maravilhosos",
+      "imagem": "https://picsum.photos/id/234/300/200",
+      "tipo": "cidade",
+      "latitude": -23.5505,
+      "longitude": -46.6333
+    }
+  ]
+}

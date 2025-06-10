@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Place</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Cabeçalho do site -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Find Your Place</h1>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="navigation">
+                <ul class="nav-list">
+                    <li><a href="#maispopulares">Mais populares</a></li>
+                    <li><a href="mapa_destinos.html">Destinos</a></li>
+                    <!-- <li><a href="#contato">Contato</a></li> -->
+                    <!-- <li><a href="#sobrenos">Sobre nós</a></li> -->
+                    <li><a href="cadastro_destinos.html">Cadastre-se!</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="main-section">
+                    <!-- Seção de pesquisa e filtros -->
+                    <section id="filtros" class="search-section">
+                        <div class="search-group">
+                            <input type="text" placeholder="Pesquisar sobre...">
+                            <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            <button type="button">Filtrar</button>
+                        </div>
+                    </section>
+            
+                    <div class="intro-section">
+                        <div class="intro-content">
+                            <img src="https://picsum.photos/id/268/800/200" alt="Imagem inicial">
+                            <h2>Find Your Place</h2>
+                            <p class="textonintro">A Find Your Place é uma empresa inovadora que surgiu com a missão de transformar a experiência de planejar viagens e descobrir destinos ao redor do mundo. Em um cenário onde viajar é cada vez mais acessível e desejado, a empresa se destaca por oferecer uma plataforma única e intuitiva para ajudar viajantes a encontrar os melhores lugares para explorar, seja para férias, negócios ou aventuras.A criadora da empresa se chama Camila Menezes, e é aluna do curso de Ciência da Computação na PUC Minas. </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <aside class="sidebar">
+                    <h2>Categorias</h2>
+                    <ul class="category-list">
+                        <li><input type="checkbox"> Natureza</li>
+                        <li><input type="checkbox"> Entretenimento</li>
+                        <li><input type="checkbox"> Gastronomia</li>
+                        <li><input type="checkbox"> Vida Urbana</li>
+                    </ul>
+                    <h2>Todos os destinos</h2>
+                    <ul class="destination-list">
+                        <li>Brasil</li>
+                        <li>Estados Unidos</li>
+                        <li>Itália</li>
+                        <li>Japão</li>
+                        <li>França</li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lista de destinos -->
+    <section id="destinos" class="destinations-section">
+        <div class="container">
+            <h4 class="textonintro">Todos os lugares!</h4>
+            <div class="cards-container" id="cards-container">
+                <!-- Os cards serão inseridos aqui dinamicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy;2025, Turismo. Todos os direitos reservados</p>
+        <form class="subscribe-form">
+            <div class="subscribe-group">
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+                <button type="submit">Inscrever-se</button>
+            </div>
+        </form>
+    </footer>
+
+    <script src="assets/scripts/app.js"></script>
+</body>
+</html>

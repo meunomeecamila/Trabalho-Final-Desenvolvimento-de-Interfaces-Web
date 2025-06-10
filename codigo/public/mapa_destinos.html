@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa Interativo - Find Your Place</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 600px;
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Find Your Place</h1>
+      <button class="menu-toggle" aria-label="Abrir menu">
+        <span class="hamburger"></span>
+      </button>
+      <nav class="navigation">
+        <ul class="nav-list">
+          <li><a href="index.html#maispopulares">Mais populares</a></li>
+          <li><a href="index.html#destinos">Destinos</a></li>
+          <!--<li><a href="index.html#contato">Contato</a></li>-->
+          <!--<li><a href="index.html#sobrenos">Sobre nós</a></li>-->
+          <li><a href="cadastro_destinos.html">Cadastre-se!</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="main-section">
+          <h2>Mapa Interativo de Destinos</h2>
+          <p class="textonintro">Explore os destinos cadastrados no mapa abaixo:</p>
+          <div id="map"></div>
+        </div>
+
+        <aside class="sidebar">
+          <h2>Categorias</h2>
+          <ul class="category-list">
+            <li><input type="checkbox"> Natureza</li>
+            <li><input type="checkbox"> Entretenimento</li>
+            <li><input type="checkbox"> Gastronomia</li>
+            <li><input type="checkbox"> Vida Urbana</li>
+          </ul>
+          <h2>Todos os destinos</h2>
+          <ul class="destination-list">
+            <li>Brasil</li>
+            <li>Estados Unidos</li>
+            <li>Itália</li>
+            <li>Japão</li>
+            <li>França</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy;2025, Turismo. Todos os direitos reservados</p>
+    <form class="subscribe-form">
+      <div class="subscribe-group">
+        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+        <button type="submit">Inscrever-se</button>
+      </div>
+    </form>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="assets/scripts/leaflet_mapa.js"></script>
+  <script src="assets/scripts/app.js"></script>
+</body>
+</html>
