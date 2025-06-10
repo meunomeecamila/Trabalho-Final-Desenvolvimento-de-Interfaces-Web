@@ -241,3 +241,25 @@ function resetAutoSlide() {
   clearInterval(autoSlide);
   startAutoSlide();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const cardsContainer = document.getElementById('cards-container');
+
+  searchBtn?.addEventListener('click', () => {
+    const termo = searchInput.value.toLowerCase();
+    const cards = cardsContainer.querySelectorAll('.card-destino');
+
+    cards.forEach(card => {
+      const nome = card.querySelector('h3').textContent.toLowerCase();
+      const descricao = card.querySelector('p').textContent.toLowerCase();
+
+      if (nome.includes(termo) || descricao.includes(termo)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});

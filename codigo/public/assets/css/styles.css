@@ -158,6 +158,7 @@ header {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 20px;
+    border-radius: 10px;
 }
 
 .card {
@@ -167,6 +168,7 @@ header {
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 10px;
 }
 
 .card-body {
@@ -174,6 +176,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    border-radius: 10px;
   }
 
 .card:hover {
@@ -550,4 +553,9 @@ button:hover {
   height: 100px;    /* força altura da imagem para 200px */
   object-fit: cover; /* mantém a imagem preenchendo sem distorcer */
   user-select: none; /* evita seleção ao clicar */
+}
+
+.destinations-section {
+  margin-top: 0;
+  padding-top: 0;
 }

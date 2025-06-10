@@ -37,8 +37,8 @@
                     <!-- Seção de pesquisa e filtros -->
                     <section id="filtros" class="search-section">
                         <div class="search-group">
-                            <input type="text" placeholder="Pesquisar sobre...">
-                            <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            <input type="text" id="searchInput" placeholder="Pesquisar sobre...">
+                            <button type="button" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                             <button type="button">Filtrar</button>
                         </div>
                     </section>
@@ -57,10 +57,20 @@
                     <div class="intro-section">
                         <div class="intro-content">
                             <br>
-                            <h2>Find Your Place</h2>
-                            <p class="textonintro">A Find Your Place é uma empresa inovadora que surgiu com a missão de transformar a experiência de planejar viagens e descobrir destinos ao redor do mundo. Em um cenário onde viajar é cada vez mais acessível e desejado, a empresa se destaca por oferecer uma plataforma única e intuitiva para ajudar viajantes a encontrar os melhores lugares para explorar, seja para férias, negócios ou aventuras.A criadora da empresa se chama Camila Menezes, e é aluna do curso de Ciência da Computação na PUC Minas. </p>
+                            <!--<h2>Find Your Place</h2>-->
+                            <!--<p class="textonintro">A Find Your Place é uma empresa inovadora que surgiu com a missão de transformar a experiência de planejar viagens e descobrir destinos ao redor do mundo. Em um cenário onde viajar é cada vez mais acessível e desejado, a empresa se destaca por oferecer uma plataforma única e intuitiva para ajudar viajantes a encontrar os melhores lugares para explorar, seja para férias, negócios ou aventuras.A criadora da empresa se chama Camila Menezes, e é aluna do curso de Ciência da Computação na PUC Minas. </p> -->
                         </div>
                     </div>
+
+                    <!-- Lista de destinos -->
+                     <section id="destinos" class="destinations-section">
+                        <div class="container">
+                            <h4 class="textonintro">Todos os lugares!</h4>
+                            <div class="cards-container" id="cards-container">
+                                <!-- Os cards serão inseridos aqui dinamicamente -->
+                                </div>
+                            </div>
+                        </section>
                 </div>
                 
                 <aside class="sidebar">
@@ -84,15 +94,6 @@
         </div>
     </main>
 
-    <!-- Lista de destinos -->
-    <section id="destinos" class="destinations-section">
-        <div class="container">
-            <h4 class="textonintro">Todos os lugares!</h4>
-            <div class="cards-container" id="cards-container">
-                <!-- Os cards serão inseridos aqui dinamicamente -->
-            </div>
-        </div>
-    </section>
 
     <!-- Rodapé -->
     <footer class="footer">
