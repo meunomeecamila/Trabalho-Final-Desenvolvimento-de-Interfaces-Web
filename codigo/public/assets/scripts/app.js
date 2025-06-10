@@ -151,19 +151,93 @@ if (window.location.pathname.includes('detalhes.html')) {
     .catch(erro => console.error('Erro ao carregar destino:', erro));
 }
 
-const imgs = document.getElementById("imgca");
-const img = document.querySelectorAll("#imgca img");
+//Fazer o carrossel 
+const carousel = document.getElementById('carousel');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-let idx = 0;
+let items = [];
+let currentIndex = 0;
+const API_URL = "http://localhost:3000/destinos";
 
-function carrossel(){
-    idx++;
-    if(idx > img.length -1){
-        idx = 0;
-    }
+function renderItemWithFade(index) {
+  if (items.length === 0) return;
 
-    imgs.style.transform = `translateX(${-idx * 500}px)`;
+  const oldItem = carousel.querySelector('.carousel-item');
+  if (oldItem) {
+    // inicia fade out
+    oldItem.classList.add('fade-out');
+
+    // espera 500ms (tempo da transição) e troca o conteúdo
+    setTimeout(() => {
+      const item = items[index];
+      carousel.innerHTML = `
+        <div class="carousel-item" onclick="goToDetails(${item.id})">
+          <img src="${item.imagem}" alt="${item.nome}">
+          <h2>${item.nome}</h2>
+          <p>${item.descricao}</p>
+        </div>
+      `;
+      // fade in acontece automaticamente (opacidade volta a 1)
+    }, 500);
+  } else {
+    // primeira vez que não tem item ainda, só renderiza direto
+    const item = items[index];
+    carousel.innerHTML = `
+      <div class="carousel-item" onclick="goToDetails(${item.id})">
+        <img src="${item.imagem}" alt="${item.nome}">
+        <h2>${item.nome}</h2>
+        <p>${item.descricao}</p>
+      </div>
+    `;
+  }
 }
 
-setInterval(carrossel, 1800);
+function goToDetails(id) {
+  window.location.href = `detalhes.html?id=${id}`;
+}
 
+function showNext() {
+  currentIndex = (currentIndex + 1) % items.length;
+  renderItemWithFade(currentIndex);
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  renderItemWithFade(currentIndex);
+}
+
+fetch(API_URL)
+  .then(res => res.json())
+  .then(data => {
+    items = data;
+    renderItemWithFade(currentIndex);
+    startAutoSlide(); // começa o automático só depois de carregar
+  })
+  .catch(err => {
+    carousel.innerHTML = "<p>Erro ao carregar dados.</p>";
+    console.error(err);
+  });
+
+nextBtn.addEventListener('click', () => {
+  showNext();
+  resetAutoSlide();
+});
+
+prevBtn.addEventListener('click', () => {
+  showPrev();
+  resetAutoSlide();
+});
+
+let autoSlide;
+
+function startAutoSlide() {
+  autoSlide = setInterval(() => {
+    showNext();
+  }, 5000);
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlide);
+  startAutoSlide();
+}

@@ -467,22 +467,87 @@ th {
     padding: 20px;
 }
 
-.carrossel {
-    box-shadow: 2px 2x 4px black;
-    overflow: hidden;
-    height: 500px;
-    width: 500px;
-    border-radius: 10px;
+.carousel-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 600px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.containerca{
-    display: flex;
-    transition: transfore 0.5s ease-in-out;
-    transform: translateX(0);
+.carousel {
+  flex: 1;
+  display: flex;
+  transition: transform 0.4s ease-in-out;
 }
 
-imgca {
-    object-fit: cover;
-    height: 500px;
-    width: 500px;
+.carousel-item {
+  min-width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+}
+
+.carousel-item img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel-item h2 {
+  margin: 10px 0 5px;
+  font-size: 1.5rem;
+}
+
+.carousel-item p {
+  font-size: 1rem;
+  color: #555;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  color: #333;
+}
+
+button:hover {
+  color: #000;
+}
+
+.carousel-item {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+.carousel-item.fade-out {
+  opacity: 0;
+}
+
+#carousel {
+  width: 800px;
+  height: 200px;
+  overflow: hidden; /* evita que conteúdo extrapole */
+  position: relative;
+}
+
+.carousel-item {
+  width: 800px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-item img {
+  width: 600px;     /* força a imagem a ter 800px de largura */
+  height: 100px;    /* força altura da imagem para 200px */
+  object-fit: cover; /* mantém a imagem preenchendo sem distorcer */
+  user-select: none; /* evita seleção ao clicar */
 }
