@@ -11,6 +11,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -464,4 +465,24 @@ th {
 .titledestinos {
     color: #5c7868;
     padding: 20px;
+}
+
+.carrossel {
+    box-shadow: 2px 2x 4px black;
+    overflow: hidden;
+    height: 500px;
+    width: 500px;
+    border-radius: 10px;
+}
+
+.containerca{
+    display: flex;
+    transition: transfore 0.5s ease-in-out;
+    transform: translateX(0);
+}
+
+imgca {
+    object-fit: cover;
+    height: 500px;
+    width: 500px;
 }

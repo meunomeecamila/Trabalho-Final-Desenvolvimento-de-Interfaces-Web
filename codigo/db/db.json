@@ -4,7 +4,7 @@
       "id": "1",
       "nome": "Nova York",
       "descricao": "A cidade que nunca dorme! Conhecida por seus arranha-céus, parques e cultura vibrante.",
-      "imagem": "https://picsum.photos/id/43/300/200",
+      "imagem": "https://picsum.photos/id/274/300/200",
       "tipo": "cidade",
       "latitude": 40.7128,
       "longitude": -74.0060
