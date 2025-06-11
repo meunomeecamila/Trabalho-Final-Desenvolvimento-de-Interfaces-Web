@@ -559,3 +559,19 @@ button:hover {
   margin-top: 0;
   padding-top: 0;
 }
+
+
+.logo img {
+    height: 40px; /* ou o tamanho que quiser */
+    margin-right: 10px;
+}
+
+#imagemlogo {
+  height: 200px;
+  width: auto;
+  position: absolute;
+  top: -15px;
+  left: -15px;
+}
+
+
