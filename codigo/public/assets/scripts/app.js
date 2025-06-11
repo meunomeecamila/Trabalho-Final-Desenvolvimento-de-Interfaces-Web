@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const isCadastroPage = window.location.pathname.includes('cadastro_destinos.html');
   const isIndexPage = document.getElementById('cards-container');
   const isDetalhesPage = window.location.pathname.includes('detalhes.html');
+  const isFavoritosPage = window.location.pathname.includes('favoritos.html');
 
-  // CADASTRO
+  // CADASTRO DE LUGARES 
   if (isCadastroPage) {
     const form = document.getElementById('form-destino');
 
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    // LISTAR EM TABELA
+    // LISTAR EM TABELA DO CADASTRO DE LUGARES
     function carregarDestinosTabela() {
       fetch(API_URL)
         .then(res => res.json())
@@ -98,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // PÁGINA PRINCIPAL - CARDS
+  // fazer aparecer os cards
   if (isIndexPage) {
     function carregarDestinosCards() {
       fetch(API_URL)
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <p>${destino.descricao}</p>
             <div class="card-actions">
             <button onclick="abrirDetalhes(${destino.id})">Ver detalhes</button>
-            <i class="fas fa-star estrela" onclick="marcarFavorito(this, ${destino.id})"></i>
+            <i class="fas fa-star estrela" onclick="marcarFavorito(this, ${destino.id})"></i> 
             </div>
             `;
             container.appendChild(card);
@@ -263,18 +265,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function marcarFavorito(estrela, id) {
-  estrela.classList.toggle('selecionada');
-
-  let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
-
-  if (estrela.classList.contains('selecionada')) {
-    if (!favoritos.includes(id)) {
-      favoritos.push(id);
-    }
-  } else {
-    favoritos = favoritos.filter(favId => favId !== id);
-  }
-
-  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+//FAVORITOS
+async function marcarFavorito(estrela,id){
+  await fetch("http://localhost:3000/favorito",{
+    "method":POST,
+    "header":{ContentType}
+  })
 }
