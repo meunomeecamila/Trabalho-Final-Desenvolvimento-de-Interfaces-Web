@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const isDetalhesPage = window.location.pathname.includes('detalhes.html');
   const isFavoritosPage = window.location.pathname.includes('favoritos.html');
 
+
   // CADASTRO DE LUGARES 
   if (isCadastroPage) {
     const form = document.getElementById('form-destino');
@@ -265,10 +266,53 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-//FAVORITOS
-async function marcarFavorito(estrela,id){
-  await fetch("http://localhost:3000/favorito",{
-    "method":POST,
-    "header":{ContentType}
-  })
+// FAVORITOS
+// Verifica se já existe um array de favoritos no localStorage, se não, cria um vazio
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+function marcarFavorito(elemento, id) {
+  // Verifica se o ID já está nos favoritos
+  const index = favoritos.indexOf(id);
+  
+  if (index === -1) {
+    // Se não estiver, adiciona aos favoritos
+    favoritos.push(id);
+    elemento.classList.add('estrela-selecionada');
+    elemento.classList.remove('estrela');
+  } else {
+    // Se já estiver, remove dos favoritos
+    favoritos.splice(index, 1);
+    elemento.classList.add('estrela');
+    elemento.classList.remove('estrela-selecionada');
+  }
+  
+  // Atualiza o localStorage
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+  
+  // Opcional: atualiza a página de favoritos
+  atualizarPaginaFavoritos();
 }
+
+// Função para carregar os favoritos ao iniciar a página
+function carregarFavoritos() {
+  favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+  
+  // Para cada card, verifica se é favorito e atualiza o ícone
+  document.querySelectorAll('.estrela').forEach(estrela => {
+    const id = estrela.getAttribute('onclick').match(/marcarFavorito\(this, (\d+)\)/)[1];
+    if (favoritos.includes(parseInt(id))) {
+      estrela.classList.add('estrela-selecionada');
+      estrela.classList.remove('estrela');
+    }
+  });
+}
+
+// Função para atualizar a página de favoritos (você precisa implementar conforme sua necessidade)
+function atualizarPaginaFavoritos() {
+  // Aqui você pode atualizar a exibição dos favoritos
+  // Por exemplo, filtrar os destinos que estão no array favoritos
+  console.log('Favoritos atualizados:', favoritos);
+}
+
+// Chama a função ao carregar a página
+window.addEventListener('DOMContentLoaded', carregarFavoritos);
