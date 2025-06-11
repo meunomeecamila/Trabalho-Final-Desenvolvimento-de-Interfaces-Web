@@ -574,4 +574,27 @@ button:hover {
   left: -15px;
 }
 
+#imagemperfil {
+    height: 120px;
+    width: auto;
+    position: absolute;
+    bottom: -600px;
+    left: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.estrela {
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: 10px;
+}
+
+.estrela.selecionada {
+  color: gold;
+}
+
+
 
