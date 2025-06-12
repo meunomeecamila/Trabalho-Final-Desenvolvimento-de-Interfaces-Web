@@ -1,46 +1,60 @@
+const API_URL = 'http://localhost:3000/destinos';
+
 document.addEventListener('DOMContentLoaded', function () {
-  const API_URL = 'http://localhost:3000/destinos';
-  const isCadastroPage = window.location.pathname.includes('cadastro_destinos.html');
-  const isIndexPage = document.getElementById('cards-container');
-  const isDetalhesPage = window.location.pathname.includes('detalhes.html');
-  const isFavoritosPage = window.location.pathname.includes('favoritos.html');
+  const path = window.location.pathname;
+  const isCadastroPage = path.includes('cadastro_destinos.html');
+  const isIndexPage = path.includes('index.html') || path.endsWith('/');
+  const isDetalhesPage = path.includes('detalhes.html');
+  const isFavoritosPage = path.includes('favoritos.html');
 
+  // Funções reutilizáveis
+  function toggleFavorito(id, element) {
+    let fav = JSON.parse(localStorage.getItem('favoritos')) || [];
+    if (fav.includes(id)) {
+      fav = fav.filter(item => item !== id);
+      element?.classList?.remove('favoritado');
+    } else {
+      fav.push(id);
+      element?.classList?.add('favoritado');
+    }
+    localStorage.setItem('favoritos', JSON.stringify(fav));
+  }
 
-  // CADASTRO DE LUGARES 
+  function abrirDetalhes(id) {
+    window.location.href = `detalhes.html?id=${id}`;
+  }
+
+  window.toggleFavorito = toggleFavorito;
+  window.abrirDetalhes = abrirDetalhes;
+
+  // CADASTRO DE DESTINOS
   if (isCadastroPage) {
     const form = document.getElementById('form-destino');
 
-    if (form) {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
+    form?.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-        const novoDestino = {
-          nome: document.getElementById('nome').value,
-          descricao: document.getElementById('descricao').value,
-          imagem: document.getElementById('imagem').value,
-          tipo: document.getElementById('tipo').value
-        };
+      const novoDestino = {
+        nome: document.getElementById('nome').value,
+        descricao: document.getElementById('descricao').value,
+        imagem: document.getElementById('imagem').value,
+        tipo: document.getElementById('tipo').value
+      };
 
-        fetch(API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(novoDestino)
-        })
-        .then(response => response.json())
-        .then(data => {
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(novoDestino)
+      })
+        .then(res => res.json())
+        .then(() => {
           alert('Destino cadastrado com sucesso!');
           form.reset();
           carregarDestinosTabela();
         })
-        .catch(error => {
-          console.error('Erro ao cadastrar:', error);
-        });
-      });
-    }
+        .catch(err => console.error('Erro ao cadastrar:', err));
+    });
 
-    // LISTAR EM TABELA DO CADASTRO DE LUGARES
     function carregarDestinosTabela() {
       fetch(API_URL)
         .then(res => res.json())
@@ -54,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <td>${destino.nome}</td>
               <td>${destino.descricao}</td>
               <td>${destino.tipo}</td>
-              <td><img src="${destino.imagem}" alt="${destino.nome}" width="100"></td>
+              <td><img src="${destino.imagem}" width="100"></td>
               <td>
                 <button onclick="editarDestino(${destino.id})">Editar</button>
                 <button onclick="deletarDestino(${destino.id})">Excluir</button>
@@ -65,42 +79,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    window.editarDestino = function(id) {
-      const nome = prompt("Novo nome:");
-      const descricao = prompt("Nova descrição:");
-      const tipo = prompt("Novo tipo:");
-      const imagem = prompt("Nova URL da imagem:");
+    window.editarDestino = function (id) {
+      const nome = prompt('Novo nome:');
+      const descricao = prompt('Nova descrição:');
+      const tipo = prompt('Novo tipo:');
+      const imagem = prompt('Nova URL da imagem:');
 
       fetch(`${API_URL}/${id}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, descricao, tipo, imagem })
       })
-      .then(() => {
-        alert("Destino atualizado!");
-        carregarDestinosTabela();
-      });
-    };
-
-    window.deletarDestino = function(id) {
-      if (confirm("Tem certeza que deseja excluir este destino?")) {
-        fetch(`${API_URL}/${id}`, {
-          method: 'DELETE'
-        })
         .then(() => {
-          alert("Destino excluído!");
+          alert('Destino atualizado!');
           carregarDestinosTabela();
         });
+    };
+
+    window.deletarDestino = function (id) {
+      if (confirm('Tem certeza que deseja excluir este destino?')) {
+        fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+          .then(() => {
+            alert('Destino excluído!');
+            carregarDestinosTabela();
+          });
       }
     };
 
     carregarDestinosTabela();
   }
 
-  // PÁGINA PRINCIPAL - CARDS
-  // fazer aparecer os cards
+  // PÁGINA INICIAL - DESTINOS EM CARDS
   if (isIndexPage) {
     function carregarDestinosCards() {
       fetch(API_URL)
@@ -108,38 +117,45 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(destinos => {
           const container = document.getElementById('cards-container');
           container.innerHTML = '';
+          const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
           destinos.forEach(destino => {
+            const isFavorito = favoritos.includes(destino.id);
+
             const card = document.createElement('div');
             card.classList.add('card-destino');
             card.innerHTML = `
-            <img src="${destino.imagem}" alt="${destino.nome}">
-            <h3>${destino.nome}</h3>
-            <p>${destino.descricao}</p>
-            <div class="card-actions">
-            <button onclick="abrirDetalhes(${destino.id})">Ver detalhes</button>
-            <i class="fas fa-star estrela" onclick="marcarFavorito(this, ${destino.id})"></i> 
-            </div>
+              <img src="${destino.imagem}" alt="${destino.nome}">
+              <h3>${destino.nome}</h3>
+              <p>${destino.descricao}</p>
+              <div class="card-actions">
+                <button onclick="abrirDetalhes(${destino.id})">Ver detalhes</button>
+                <i class="fas fa-star estrela ${isFavorito ? 'favoritado' : ''}" onclick="toggleFavorito('${destino.id}', this)"></i>
+              </div>
             `;
             container.appendChild(card);
           });
-        })
-        .catch(erro => console.error('Erro ao carregar destinos:', erro));
+        });
     }
-
-    function abrirDetalhes(id) {
-      window.location.href = `detalhes.html?id=${id}`;
-    }
-
-    window.abrirDetalhes = abrirDetalhes;
+    
     carregarDestinosCards();
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    searchBtn?.addEventListener('click', () => {
+      const termo = searchInput.value.toLowerCase();
+      const cards = document.querySelectorAll('.card-destino');
+      cards.forEach(card => {
+        const nome = card.querySelector('h3').textContent.toLowerCase();
+        const descricao = card.querySelector('p').textContent.toLowerCase();
+        card.style.display = nome.includes(termo) || descricao.includes(termo) ? 'block' : 'none';
+      });
+    });
   }
 
   // DETALHES
   if (isDetalhesPage) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
+    const id = new URLSearchParams(window.location.search).get('id');
     fetch(`${API_URL}/${id}`)
       .then(res => res.json())
       .then(destino => {
@@ -147,8 +163,51 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('edit-descricao').value = destino.descricao;
         document.getElementById('edit-tipo').value = destino.tipo;
         document.getElementById('destino-imagem').src = destino.imagem;
-      })
-      .catch(erro => console.error('Erro ao carregar destino:', erro));
+      });
+  }
+
+  // FAVORITOS
+  if (isFavoritosPage) {
+    function carregarFavoritos() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(destinos => {
+          const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+          const destinosFavoritos = destinos.filter(d => favoritos.includes(d.id));
+
+          const container = document.getElementById('favoritos-lista');
+          container.innerHTML = '';
+
+          if (destinosFavoritos.length === 0) {
+            container.innerHTML = '<p>Nenhum destino favorito ainda.</p>';
+            return;
+          }
+
+          destinosFavoritos.forEach(destino => {
+            const card = document.createElement('div');
+            card.classList.add('card-destino');
+            card.innerHTML = `
+              <img src="${destino.imagem}" alt="${destino.nome}">
+              <h3>${destino.nome}</h3>
+              <p>${destino.descricao}</p>
+              <div class="card-actions">
+                <button onclick="abrirDetalhes(${destino.id})">Ver detalhes</button>
+                <button onclick="removerFavorito('${destino.id}')">❌ Remover</button>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        });
+    }
+
+    window.removerFavorito = function (id) {
+      let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+      favoritos = favoritos.filter(item => item !== id);
+      localStorage.setItem('favoritos', JSON.stringify(favoritos));
+      carregarFavoritos();
+    };
+
+    carregarFavoritos();
   }
 
   // CARROSSEL
@@ -157,63 +216,34 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextBtn = document.getElementById('nextBtn');
 
   if (carousel && prevBtn && nextBtn) {
-    let items = [];
-    let currentIndex = 0;
-    let autoSlide;
+    let items = [], currentIndex = 0, autoSlide;
 
-    function renderItemWithFade(index) {
+    function renderItem(index) {
       if (items.length === 0) return;
 
-      const oldItem = carousel.querySelector('.carousel-item');
       const item = items[index];
-
-      if (oldItem) {
-        oldItem.classList.add('fade-out');
-
-        setTimeout(() => {
-          const newItem = document.createElement('div');
-          newItem.classList.add('carousel-item');
-          newItem.innerHTML = `
-            <img src="${item.imagem}" alt="${item.nome}">
-            <h2>${item.nome}</h2>
-            <p>${item.descricao}</p>
-          `;
-          newItem.addEventListener('click', () => goToDetails(item.id));
-          carousel.innerHTML = '';
-          carousel.appendChild(newItem);
-        }, 500);
-      } else {
-        const newItem = document.createElement('div');
-        newItem.classList.add('carousel-item');
-        newItem.innerHTML = `
+      carousel.innerHTML = `
+        <div class="carousel-item fade-in">
           <img src="${item.imagem}" alt="${item.nome}">
           <h2>${item.nome}</h2>
           <p>${item.descricao}</p>
-        `;
-        newItem.addEventListener('click', () => goToDetails(item.id));
-        carousel.innerHTML = '';
-        carousel.appendChild(newItem);
-      }
+        </div>
+      `;
+      carousel.querySelector('.carousel-item').addEventListener('click', () => abrirDetalhes(item.id));
     }
 
     function showNext() {
       currentIndex = (currentIndex + 1) % items.length;
-      renderItemWithFade(currentIndex);
+      renderItem(currentIndex);
     }
 
     function showPrev() {
       currentIndex = (currentIndex - 1 + items.length) % items.length;
-      renderItemWithFade(currentIndex);
-    }
-
-    function goToDetails(id) {
-      window.location.href = `detalhes.html?id=${id}`;
+      renderItem(currentIndex);
     }
 
     function startAutoSlide() {
-      autoSlide = setInterval(() => {
-        showNext();
-      }, 5000);
+      autoSlide = setInterval(showNext, 5000);
     }
 
     function resetAutoSlide() {
@@ -225,94 +255,11 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(res => res.json())
       .then(data => {
         items = data;
-        renderItemWithFade(currentIndex);
+        renderItem(currentIndex);
         startAutoSlide();
-      })
-      .catch(err => {
-        carousel.innerHTML = "<p>Erro ao carregar dados.</p>";
-        console.error(err);
       });
 
-    nextBtn.addEventListener('click', () => {
-      showNext();
-      resetAutoSlide();
-    });
-
-    prevBtn.addEventListener('click', () => {
-      showPrev();
-      resetAutoSlide();
-    });
+    nextBtn.addEventListener('click', () => { showNext(); resetAutoSlide(); });
+    prevBtn.addEventListener('click', () => { showPrev(); resetAutoSlide(); });
   }
-
-  // BUSCA
-  const searchInput = document.getElementById('searchInput');
-  const searchBtn = document.getElementById('searchBtn');
-  const cardsContainer = document.getElementById('cards-container');
-
-  searchBtn?.addEventListener('click', () => {
-    const termo = searchInput.value.toLowerCase();
-    const cards = cardsContainer.querySelectorAll('.card-destino');
-
-    cards.forEach(card => {
-      const nome = card.querySelector('h3').textContent.toLowerCase();
-      const descricao = card.querySelector('p').textContent.toLowerCase();
-
-      if (nome.includes(termo) || descricao.includes(termo)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
 });
-
-// FAVORITOS
-// Verifica se já existe um array de favoritos no localStorage, se não, cria um vazio
-let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
-
-function marcarFavorito(elemento, id) {
-  // Verifica se o ID já está nos favoritos
-  const index = favoritos.indexOf(id);
-  
-  if (index === -1) {
-    // Se não estiver, adiciona aos favoritos
-    favoritos.push(id);
-    elemento.classList.add('estrela-selecionada');
-    elemento.classList.remove('estrela');
-  } else {
-    // Se já estiver, remove dos favoritos
-    favoritos.splice(index, 1);
-    elemento.classList.add('estrela');
-    elemento.classList.remove('estrela-selecionada');
-  }
-  
-  // Atualiza o localStorage
-  localStorage.setItem('favoritos', JSON.stringify(favoritos));
-  
-  // Opcional: atualiza a página de favoritos
-  atualizarPaginaFavoritos();
-}
-
-// Função para carregar os favoritos ao iniciar a página
-function carregarFavoritos() {
-  favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
-  
-  // Para cada card, verifica se é favorito e atualiza o ícone
-  document.querySelectorAll('.estrela').forEach(estrela => {
-    const id = estrela.getAttribute('onclick').match(/marcarFavorito\(this, (\d+)\)/)[1];
-    if (favoritos.includes(parseInt(id))) {
-      estrela.classList.add('estrela-selecionada');
-      estrela.classList.remove('estrela');
-    }
-  });
-}
-
-// Função para atualizar a página de favoritos (você precisa implementar conforme sua necessidade)
-function atualizarPaginaFavoritos() {
-  // Aqui você pode atualizar a exibição dos favoritos
-  // Por exemplo, filtrar os destinos que estão no array favoritos
-  console.log('Favoritos atualizados:', favoritos);
-}
-
-// Chama a função ao carregar a página
-window.addEventListener('DOMContentLoaded', carregarFavoritos);

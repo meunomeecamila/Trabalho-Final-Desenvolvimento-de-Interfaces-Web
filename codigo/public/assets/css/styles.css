@@ -593,5 +593,20 @@ button:hover {
 }
 
 .estrela.selecionada {
-  color: gold;
+  color: rgb(122, 157, 127);
+}
+
+.estrela {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #ccc;
+  transition: all 0.3s;
+}
+
+.estrela.favoritado {
+  color: rgb(122, 157, 127);
+}
+
+.estrela:hover {
+  transform: scale(1.2);
 }
