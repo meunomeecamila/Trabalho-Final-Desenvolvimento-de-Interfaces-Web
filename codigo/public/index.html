@@ -25,7 +25,7 @@
                     <!-- <li><a href="#sobrenos">Sobre nós</a></li> -->
                     <li><a href="cadastro_destinos.html">Cadastre-se!</a></li>
                     <li><a href="favoritos.html">Favoritos</a></li>
-                    <li><a href="cadastro_destinos.html">Login</a></li>
+                    <li><a href="cadastro.html">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -40,7 +40,7 @@
                         <div class="search-group">
                             <input type="text" id="searchInput" placeholder="Pesquisar sobre...">
                             <button type="button" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            <button type="button">Filtrar</button>
+                            <!--<button type="button">Filtrar</button>-->
                         </div>
                     </section>
 
@@ -94,6 +94,29 @@
             </div>
         </div>
     </main>
+
+    <!-- Parte do login-->
+     <nav>
+        <a href="index.html">Início</a>
+        <a href="favoritos.html" id="favoritosLink" style="display:none">Favoritos</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="#" id="logoutLink" style="display:none">Logout</a>
+    </nav>
+    
+    <script>
+    const usuario = JSON.parse(sessionStorage.getItem("usuarioLogado"));
+    if (usuario) {
+        document.getElementById("favoritosLink").style.display = "inline";
+        document.getElementById("loginLink").style.display = "none";
+        document.getElementById("logoutLink").style.display = "inline";
+    }
+    
+    document.getElementById("logoutLink").addEventListener("click", function() {
+    sessionStorage.removeItem("usuarioLogado");
+    window.location.reload();
+  });
+</script>
+
 
 
     <!-- Rodapé -->

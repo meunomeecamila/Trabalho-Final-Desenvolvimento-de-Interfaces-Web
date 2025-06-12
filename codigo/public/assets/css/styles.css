@@ -610,3 +610,22 @@ button:hover {
 .estrela:hover {
   transform: scale(1.2);
 }
+
+/* Cadastro de usuário */
+.cadastro {
+  text-align: center;
+  color: #67594e;
+}
+
+.cadastrobotao {
+  background-color: #5c7868;
+  color: #ccc;
+}
+
+.cadastrobotao:hover{
+  background-color: #67594e;
+}
+
+.conta {
+  margin: 10px;
+}
