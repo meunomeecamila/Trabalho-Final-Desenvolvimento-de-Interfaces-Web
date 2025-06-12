@@ -15,7 +15,11 @@ fetch('http://localhost:3000/destinos')
         // Cria o marcador
         L.marker([destino.latitude, destino.longitude])
           .addTo(map)
-          .bindPopup(`<strong>${destino.nome}</strong><br>${destino.descricao}`);
+          .bindPopup(`
+            <strong>${destino.nome}</strong><br>
+            ${destino.descricao}<br>
+            <a href="detalhes.html?id=${destino.id}">Ver detalhes</a>
+          `);
       }
     });
   })
